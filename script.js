@@ -466,42 +466,14 @@ function checkOrangeCollision() {
   const taxiSize = 96;
   const orangeSize = 36;
 
+  // 通常みかん
   const hit =
     taxiX < orangeX + orangeSize &&
     taxiX + taxiSize > orangeX &&
     taxiY < orangeY + orangeSize &&
     taxiY + taxiSize > orangeY;
 
- if (hit) {
-  flashTaxi();
-  // 最大3個
-  if (orangeStock < 3) {
-    orangeStock++;
-  }
-
-  firstOrangeCollected = true;
-
-  // 再出現位置
-  orangeX =
-    window.innerWidth + Math.random() * 400;
-
-  const skyHeight =
-    game.clientHeight * SKY_RATIO;
-
-  orangeY =
-    skyHeight +
-    Math.random() *
-    (game.clientHeight - skyHeight - 120);
-}
-  extraOranges.forEach(o => {
-
-  const extraHit =
-    taxiX < o.x + orangeSize &&
-    taxiX + taxiSize > o.x &&
-    taxiY < o.y + orangeSize &&
-    taxiY + taxiSize > o.y;
-
-  if (extraHit) {
+  if (hit) {
 
     flashTaxi();
 
@@ -511,9 +483,41 @@ function checkOrangeCollision() {
 
     firstOrangeCollected = true;
 
-    o.x = window.innerWidth + Math.random() * 1200;
+    orangeX =
+      window.innerWidth + Math.random() * 400;
+
+    const skyHeight =
+      game.clientHeight * SKY_RATIO;
+
+    orangeY =
+      skyHeight +
+      Math.random() *
+      (game.clientHeight - skyHeight - 120);
   }
-});
+
+  // 追加みかん
+  extraOranges.forEach(o => {
+
+    const extraHit =
+      taxiX < o.x + orangeSize &&
+      taxiX + taxiSize > o.x &&
+      taxiY < o.y + orangeSize &&
+      taxiY + taxiSize > o.y;
+
+    if (extraHit) {
+
+      flashTaxi();
+
+      if (orangeStock < 3) {
+        orangeStock++;
+      }
+
+      firstOrangeCollected = true;
+
+      o.x =
+        window.innerWidth + Math.random() * 1200;
+    }
+  });
 }
 function updateOrangeStockDisplay() {
 
