@@ -145,6 +145,49 @@ function createBuildings() {
   buildings.innerHTML =
     buildingHTML + buildingHTML;
 }
+
+//ぼうし増殖
+function createExtras() {
+
+  for (let i = 0; i < 4; i++) {
+
+    const h = document.createElement("img");
+    h.src = "hat.gif";
+    h.className = "extraHat";
+    h.style.position = "absolute";
+    h.style.width = "60px";
+    h.style.height = "60px";
+    h.style.zIndex = "6";
+
+    game.appendChild(h);
+
+    extraHats.push({
+      el: h,
+      x: window.innerWidth + Math.random() * 800,
+      y: 150 + Math.random() * 400
+    });
+  }
+
+  for (let i = 0; i < 5; i++) {
+
+    const o = document.createElement("img");
+    o.src = "orange.gif";
+    o.className = "extraOrange";
+    o.style.position = "absolute";
+    o.style.width = "36px";
+    o.style.height = "36px";
+    o.style.zIndex = "6";
+
+    game.appendChild(o);
+
+    extraOranges.push({
+      el: o,
+      x: window.innerWidth + Math.random() * 1000,
+      y: 150 + Math.random() * 400
+    });
+  }
+}
+
 // =========================
 // ビル移動
 // =========================
@@ -214,6 +257,52 @@ if (hatWithOrange) {
   hat.style.left = hatX + "px";
   hat.style.top = hatY + "px";
 }
+
+function updateExtraHats() {
+
+  extraHats.forEach(h => {
+
+    h.x -= hatSpeed * (0.8 + Math.random() * 0.6);
+
+    if (h.x < -80) {
+      h.x = window.innerWidth + Math.random() * 1000;
+
+      const skyHeight = game.clientHeight * SKY_RATIO;
+
+      h.y =
+        skyHeight +
+        Math.random() *
+        (game.clientHeight - skyHeight - 120);
+    }
+
+    h.el.style.left = h.x + "px";
+    h.el.style.top = h.y + "px";
+  });
+}
+
+//追加のみかん
+function updateExtraOranges() {
+
+  extraOranges.forEach(o => {
+
+    o.x -= orangeSpeed * (0.7 + Math.random() * 0.5);
+
+    if (o.x < -60) {
+      o.x = window.innerWidth + Math.random() * 1200;
+
+      const skyHeight = game.clientHeight * SKY_RATIO;
+
+      o.y =
+        skyHeight +
+        Math.random() *
+        (game.clientHeight - skyHeight - 120);
+    }
+
+    o.el.style.left = o.x + "px";
+    o.el.style.top = o.y + "px";
+  });
+}
+
 
 // =========================
 // 当たり判定
@@ -380,11 +469,13 @@ function gameLoop() {
 
   if (!gameOver) {
 
-    if (firstOrangeCollected) {
-      updateHat();
-    }
+if (firstOrangeCollected) {
+  updateHat();
+  updateExtraHats();
+}
 
     updateOrange();
+    updateExtraOranges();
     updateRoadLine();
     updateBuildings();
     checkCollision();
