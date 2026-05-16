@@ -437,7 +437,6 @@ if (orangeStock > 0) {
     (game.clientHeight * 0.9 - 120);
 }
 
-}
 
 // みかん関数、つまりみかんすう
 function updateOrange() {
