@@ -36,6 +36,8 @@ let butterflyVY = -5;
 
 let butterflyFrame = 0;
 const butterflySwarm = [];
+const extraHats = [];
+const extraOranges = [];
 gameOverScreen.addEventListener(
   "click",
   resetGame
@@ -463,6 +465,7 @@ function updateOrangeStockDisplay() {
 // ゲームループ
 // =========================
 createBuildings();
+createExtras();
 function gameLoop() {
 
   updateKeyboardMove();
@@ -491,6 +494,7 @@ if (firstOrangeCollected) {
   requestAnimationFrame(gameLoop);
 }
 
+//リセット
 function resetGame() {
 
   gameOver = false;
@@ -510,6 +514,14 @@ function resetGame() {
   orangeX = window.innerWidth * 0.7;
   orangeY = 300;
 
+  //エクストラ位置
+extraHats.forEach(h => {
+  h.x = window.innerWidth + Math.random() * 800;
+});
+
+extraOranges.forEach(o => {
+  o.x = window.innerWidth + Math.random() * 1000;
+});
   // 蝶消す
   butterflyActive = false;
   butterfly.style.display = "none";
