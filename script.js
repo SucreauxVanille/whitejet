@@ -309,27 +309,84 @@ function updateExtraOranges() {
 // =========================
 // 当たり判定
 // =========================
+function handleHatHit(hitX, hitY, extraHat = null) {
+
+  console.log("白いぼうしだ！");
+  flashTaxi();
+
+  for (let i = 0; i < 6; i++) {
+    spawnButterfly(hitX, hitY);
+  }
+
+  if (orangeStock > 0) {
+
+    orangeStock--;
+    butterflyScore++;
+    scoreText.textContent = butterflyScore;
+
+    console.log("夏みかんを置いていった！");
+
+    if (extraHat) {
+      extraHat.x = window.innerWidth + Math.random() * 800;
+    } else {
+      hatWithOrange = true;
+    }
+
+  } else {
+
+    console.log("ちょうちょが逃げた！");
+
+    clearTimeout(gameOverTimer);
+
+    gameOverTimer = setTimeout(() => {
+      gameOver = true;
+      gameOverScreen.style.display = "flex";
+    }, 400);
+
+    if (extraHat) {
+      extraHat.x = window.innerWidth + Math.random() * 800;
+    } else {
+      hatX = window.innerWidth + Math.random() * 300;
+
+      hatY =
+        game.clientHeight * 0.1 +
+        Math.random() *
+        (game.clientHeight * 0.9 - 120);
+    }
+  }
+}
 function checkCollision() {
 
-  // 当たり判定サイズ
   const taxiSize = 84;
   const hatSize = 64;
 
-  const hit =
+  // 通常帽子
+  const mainHit =
     taxiX < hatX + hatSize &&
     taxiX + taxiSize > hatX &&
     taxiY < hatY + hatSize &&
     taxiY + taxiSize > hatY;
 
-// 当たり判定無効中
-if (hatInvincible) return;
+  if (!hatInvincible && mainHit) {
+    handleHatHit(hatX, hatY);
+    return;
+  }
 
-// 当たってなければ終了
-if (!hit) return;
+  // エクストラ帽子
+  for (const h of extraHats) {
 
-  console.log("白いぼうしだ！");
-  flashTaxi();
+    const hit =
+      taxiX < h.x + hatSize &&
+      taxiX + taxiSize > h.x &&
+      taxiY < h.y + hatSize &&
+      taxiY + taxiSize > h.y;
 
+    if (hit) {
+      handleHatHit(h.x, h.y, h);
+      return;
+    }
+  }
+}
 
   
   
@@ -436,6 +493,27 @@ function checkOrangeCollision() {
     Math.random() *
     (game.clientHeight - skyHeight - 120);
 }
+  extraOranges.forEach(o => {
+
+  const extraHit =
+    taxiX < o.x + orangeSize &&
+    taxiX + taxiSize > o.x &&
+    taxiY < o.y + orangeSize &&
+    taxiY + taxiSize > o.y;
+
+  if (extraHit) {
+
+    flashTaxi();
+
+    if (orangeStock < 3) {
+      orangeStock++;
+    }
+
+    firstOrangeCollected = true;
+
+    o.x = window.innerWidth + Math.random() * 1200;
+  }
+});
 }
 function updateOrangeStockDisplay() {
 
