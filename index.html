@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0">
+
+  <title>白いぼうし</title>
+<link rel="icon" href="taxi.gif">
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+  <div id="game">
+
+    <!-- 空 -->
+    <div id="sky"></div>
+    <!-- ビル群 -->
+    <div id="buildings"></div>
+    <!-- 中央分離帯 -->
+    <div id="roadLine"></div>
+    <!-- オブジェクト -->
+    <img id="taxi" src="taxi.gif">
+    <img id="hat" src="hat.gif">
+    <img id="orangeHat" src="orangehat.gif">
+    <img id="orange" src="orange.gif">
+    <img id="butterfly" src="butterfly.gif">
+
+    <!-- 所持みかん -->
+    <img class="stockOrange"
+         id="stock1"
+         src="orange.gif">
+    <img class="stockOrange"
+         id="stock2"
+         src="orange.gif">
+    <img class="stockOrange"
+         id="stock3"
+         src="orange.gif">
+    
+<div id="scoreBox">
+
+  <img
+    id="scoreButterfly"
+    src="butterfly.gif">
+
+  <span id="scoreText">0</span>
+
+</div>
+    <!-- GAME OVER -->
+    <div id="gameOverScreen">
+      <img src="gameover.gif"
+           id="gameOverImage">
+    </div>
+
+  </div>
+
+  <script src="script.js"></script>
+
+</body>
+</html>
