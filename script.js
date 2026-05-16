@@ -35,7 +35,7 @@ let butterflyVX = -5;
 let butterflyVY = -5;
 
 let butterflyFrame = 0;
-
+const butterflySwarm = [];
 gameOverScreen.addEventListener(
   "click",
   resetGame
@@ -87,7 +87,15 @@ function updateButterfly() {
     }
   });
 }
-
+function spawnButterfly(x, y) {
+  butterflySwarm.push({
+    x,
+    y,
+    vx: Math.random() * 8 - 4,
+    vy: -(Math.random() * 5 + 3),
+    frame: 0
+  });
+}
 // 中央分離帯
 function updateRoadLine() {
 
@@ -237,18 +245,11 @@ if (!hit) return;
   // =====================
   // 蝶出現（共通）
   // =====================
-  butterflyActive = true;
 
-  // 今の帽子位置を保存
-  butterflyX = hatX;
-  butterflyY = hatY;
-
-  butterflyFrame = 0;
 for (let i = 0; i < 6; i++) {
   spawnButterfly(hatX, hatY);
 }
-  butterfly.style.display = "block";
-const butterflySwarm = [];
+
   
 // =====================
 // 🍊あり
@@ -289,16 +290,7 @@ if (orangeStock > 0) {
 }
 
 }
-//ちょうちょ分裂
-  function spawnButterfly(x, y) {
-  butterflySwarm.push({
-    x,
-    y,
-    vx: Math.random() * 8 - 4,
-    vy: -(Math.random() * 5 + 3),
-    frame: 0
-  });
-}
+
 // みかん関数、つまりみかんすう
 function updateOrange() {
 
@@ -386,27 +378,25 @@ function gameLoop() {
 
   updateKeyboardMove();
 
-  // GAME OVER中は停止
   if (!gameOver) {
 
-    // 最初に夏みかんを拾うまで帽子を出さない
     if (firstOrangeCollected) {
       updateHat();
     }
 
     updateOrange();
-
     updateRoadLine();
     updateBuildings();
     checkCollision();
-
     checkOrangeCollision();
+
+    hatSpeed += 0.002;
+    orangeSpeed = hatSpeed;
   }
+
   updateButterfly();
   updateOrangeStockDisplay();
-  hatSpeed += 0.002;
-orangeSpeed = hatSpeed;
-}
+
   requestAnimationFrame(gameLoop);
 }
 
