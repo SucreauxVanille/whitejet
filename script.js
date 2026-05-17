@@ -531,14 +531,14 @@ function updateOrangeStockDisplay() {
   ];
 
   const positions = [
-    { x: 0, y: -20 }, // 下段左
-    { x: 26, y: -20 },
-    { x: 52, y: -20 },
+    { x: -4, y: -20 }, // 下段左
+    { x: 22, y: -20 },
+    { x: 48, y: -20 },
 
-    { x: 13, y: -42 },  // 中段
-    { x: 39, y: -42 },
+    { x: 9, y: -42 },  // 中段
+    { x: 35, y: -42 },
 
-    { x: 26, y: -64 } // 上段
+    { x: 22, y: -64 } // 上段
   ];
 
   stocks.forEach((stock, i) => {
