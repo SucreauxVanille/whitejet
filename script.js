@@ -551,7 +551,7 @@ function updateOrangeStockDisplay() {
         (taxiX + positions[i].x) + "px";
 
       stock.style.top =
-        (taxiY + positions[i].y) + "px;
+        (taxiY + positions[i].y) + "px";
 
     } else {
       stock.style.display = "none";
