@@ -324,9 +324,8 @@ function handleHatHit(hitX, hitY, extraHat = null) {
   if (orangeStock > 0) {
 
     orangeStock--;
-    butterflyScore++;
-    scoreText.textContent = butterflyScore;
-
+butterflyScore += 6;
+scoreText.textContent = butterflyScore;
     console.log("夏みかんを置いていった！");
 
     if (extraHat) {
@@ -408,7 +407,7 @@ for (let i = 0; i < 6; i++) {
 if (orangeStock > 0) {
 
   orangeStock--;
-  butterflyScore++;
+butterflyScore += 6;
 
   scoreText.textContent =
     butterflyScore;
