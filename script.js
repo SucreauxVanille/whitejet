@@ -24,6 +24,9 @@ let firstOrangeCollected = false;
 const stock1 = document.getElementById("stock1");
 const stock2 = document.getElementById("stock2");
 const stock3 = document.getElementById("stock3");
+const stock4 = document.getElementById("stock4");
+const stock5 = document.getElementById("stock5");
+const stock6 = document.getElementById("stock6");
 
 const butterfly = document.getElementById("butterfly");
 let butterflyActive = false;
@@ -341,7 +344,7 @@ function handleHatHit(hitX, hitY, extraHat = null) {
     gameOverTimer = setTimeout(() => {
       gameOver = true;
       gameOverScreen.style.display = "flex";
-    }, 400);
+    }, 120);
 
     if (extraHat) {
       extraHat.x = window.innerWidth + Math.random() * 800;
@@ -476,7 +479,7 @@ function checkOrangeCollision() {
 
     flashTaxi();
 
-    if (orangeStock < 3) {
+    if (orangeStock < 6) {
       orangeStock++;
     }
 
@@ -507,7 +510,7 @@ function checkOrangeCollision() {
 
       flashTaxi();
 
-      if (orangeStock < 3) {
+      if (orangeStock < 6) {
         orangeStock++;
       }
 
@@ -518,9 +521,25 @@ function checkOrangeCollision() {
     }
   });
 }
+
+//みかんストック表示
 function updateOrangeStockDisplay() {
 
-  const stocks = [stock1, stock2, stock3];
+  const stocks = [
+    stock1, stock2, stock3,
+    stock4, stock5, stock6
+  ];
+
+  const positions = [
+    { x: 26, y: 32 }, // 下段左
+    { x: 52, y: 32 },
+    { x: 78, y: 32 },
+
+    { x: 39, y: 6 },  // 中段
+    { x: 65, y: 6 },
+
+    { x: 52, y: -20 } // 上段
+  ];
 
   stocks.forEach((stock, i) => {
 
@@ -528,15 +547,13 @@ function updateOrangeStockDisplay() {
 
       stock.style.display = "block";
 
-      // タクシー上へ並べる
       stock.style.left =
-        (taxiX - 4 + i * 26) + "px";
+        (taxiX + positions[i].x) + "px";
 
       stock.style.top =
-        (taxiY - 20) + "px";
+        (taxiY + positions[i].y) + "px;
 
     } else {
-
       stock.style.display = "none";
     }
   });
