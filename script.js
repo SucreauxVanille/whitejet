@@ -1,4 +1,5 @@
 const game = document.getElementById("game");
+let gameStarted = false;
 let butterflyScore = 0;
 const scoreText = document.getElementById("scoreText");
 const SKY_RATIO = 0.24;
@@ -8,6 +9,14 @@ let hatWithOrange = false;
 let hatInvincible = false;
 let gameOver = false;
 let gameOverTimer = null;
+const startButton =
+  document.getElementById("startButton");
+
+startButton.addEventListener("click", () => {
+
+  gameStarted = true;
+  startButton.style.display = "none";
+});
 const gameOverScreen =
   document.getElementById("gameOverScreen");
 const taxi = document.getElementById("taxi");
@@ -526,7 +535,7 @@ function gameLoop() {
 
   updateKeyboardMove();
 
-  if (!gameOver) {
+if (!gameOver && gameStarted) {
 
 if (firstOrangeCollected) {
   updateHat();
@@ -598,6 +607,9 @@ butterflySwarm.length = 0;
 
   orange.style.left = orangeX + "px";
   orange.style.top = orangeY + "px";
+
+  gameStarted = false;
+startButton.style.display = "flex";
 }
 // =========================
 // スマホ操作
