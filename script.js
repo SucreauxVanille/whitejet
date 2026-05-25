@@ -392,19 +392,23 @@ function checkCollision() {
   }
 
   // エクストラ帽子
-  for (const h of extraHats) {
+// エクストラ帽子
+for (const h of extraHats) {
 
-    const hit =
-      taxiX < h.x + hatSize &&
-      taxiX + taxiSize > h.x &&
-      taxiY < h.y + hatSize &&
-      taxiY + taxiSize > h.y;
+  // orangehat中は無敵
+  if (h.withOrange) continue;
 
-    if (hit) {
-      handleHatHit(h.x, h.y, h);
-      return;
-    }
+  const hit =
+    taxiX < h.x + hatSize &&
+    taxiX + taxiSize > h.x &&
+    taxiY < h.y + hatSize &&
+    taxiY + taxiSize > h.y;
+
+  if (hit) {
+    handleHatHit(h.x, h.y, h);
+    return;
   }
+}
 }
 
 
@@ -582,6 +586,7 @@ function resetGame() {
   //エクストラ位置
 extraHats.forEach(h => {
   h.x = window.innerWidth + Math.random() * 800;
+  h.withOrange = false;
 });
 
 extraOranges.forEach(o => {
