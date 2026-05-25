@@ -12,11 +12,6 @@ let gameOverTimer = null;
 const startButton =
   document.getElementById("startButton");
 
-startButton.addEventListener("click", () => {
-
-  gameStarted = true;
-  startButton.style.display = "none";
-});
 const gameOverScreen =
   document.getElementById("gameOverScreen");
 const taxi = document.getElementById("taxi");
@@ -50,6 +45,11 @@ let butterflyFrame = 0;
 const butterflySwarm = [];
 const extraHats = [];
 const extraOranges = [];
+startButton.addEventListener("click", () => {
+
+  gameStarted = true;
+  startButton.style.display = "none";
+});
 gameOverScreen.addEventListener(
   "click",
   resetGame
