@@ -166,11 +166,12 @@ function createExtras() {
 
     game.appendChild(h);
 
-    extraHats.push({
-      el: h,
-      x: window.innerWidth + Math.random() * 800,
-      y: 150 + Math.random() * 400
-    });
+extraHats.push({
+  el: h,
+  x: window.innerWidth + Math.random() * 800,
+  y: 150 + Math.random() * 400,
+  withOrange: false
+});
   }
 
   for (let i = 0; i < 5; i++) {
@@ -270,6 +271,7 @@ function updateExtraHats() {
     h.x -= hatSpeed * (0.8 + Math.random() * 0.6);
 
     if (h.x < -80) {
+      h.withOrange = false;
       h.x = window.innerWidth + Math.random() * 1000;
 
       const skyHeight = game.clientHeight * SKY_RATIO;
@@ -279,7 +281,11 @@ function updateExtraHats() {
         Math.random() *
         (game.clientHeight - skyHeight - 120);
     }
-
+if (h.withOrange) {
+  h.el.src = "orangehat.gif";
+} else {
+  h.el.src = "hat.gif";
+}
     h.el.style.left = h.x + "px";
     h.el.style.top = h.y + "px";
   });
@@ -330,11 +336,11 @@ butterflyScore += burst;
 scoreText.textContent = butterflyScore;
     console.log("夏みかんを置いていった！");
 
-    if (extraHat) {
-      extraHat.x = window.innerWidth + Math.random() * 800;
-    } else {
-      hatWithOrange = true;
-    }
+if (extraHat) {
+  extraHat.withOrange = true;
+} else {
+  hatWithOrange = true;
+}
 
   } else {
 
@@ -390,55 +396,6 @@ function checkCollision() {
       return;
     }
   }
-}
-
-  
-  
-  // =====================
-  // 蝶出現（共通）
-  // =====================
-
-for (let i = 0; i < 6; i++) {
-  spawnButterfly(hatX, hatY);
-}
-
-  
-// =====================
-// 🍊あり
-// =====================
-if (orangeStock > 0) {
-
-  orangeStock--;
-butterflyScore += burst;
-
-  scoreText.textContent =
-    butterflyScore;
-  console.log("夏みかんを置いていった！");
-
-  // 帽子を夏みかん入りへ
-  hatWithOrange = true;
-
-// =====================
-// 🍊なし
-// =====================
-} else {
-
-  console.log("ちょうちょが逃げた！");
-
-  clearTimeout(gameOverTimer);
-
-  gameOverTimer = setTimeout(() => {
-    gameOver = true;
-    gameOverScreen.style.display = "flex";
-  }, 400);
-
-  // ← この場合だけ帽子リセット
-  hatX = window.innerWidth + Math.random() * 300;
-
-  hatY =
-    game.clientHeight * 0.1 +
-    Math.random() *
-    (game.clientHeight * 0.9 - 120);
 }
 
 
